@@ -14,7 +14,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password $ROOT_SQL_PASS"
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $ROOT_SQL_PASS"
 echo -e "[client]\nuser=root\npassword=$ROOT_SQL_PASS" | sudo tee /root/.my.cnf
-sudo DEBIAN_FRONTEND=noninteractive apt-get -y install git python-virtualenv python3-virtualenv curl ntp build-essential screen cmake pkg-config libboost-all-dev libevent-dev libunbound-dev libminiupnpc-dev libunwind8-dev liblzma-dev libldns-dev libexpat1-dev libgtest-dev mysql-server lmdb-utils libzmq3-dev
+sudo DEBIAN_FRONTEND=noninteractive apt-get -y install git python-virtualenv python3-virtualenv build-essential cmake pkg-config libboost-all-dev libunbound-dev libminiupnpc-dev libunwind8-dev libldns-dev libexpat1-dev libgtest-dev doxygen graphviz curl ntp build-essential screen cmake pkg-config libboost-all-dev libevent-dev libunbound-dev libminiupnpc-dev libunwind8-dev liblzma-dev libldns-dev libexpat1-dev libgtest-dev mysql-server lmdb-utils libzmq3-dev
 cd ~
 git clone https://github.com/Snipa22/nodejs-pool.git  # Change this depending on how the deployment goes.
 cd /usr/src/gtest
@@ -26,7 +26,6 @@ sudo systemctl enable ntp
 cd /usr/local/src
 sudo git clone https://github.com/electroneum/electroneum monero
 cd monero
-sudo git checkout v0.11.1.0
 curl https://raw.githubusercontent.com/Snipa22/nodejs-pool/master/deployment/monero_daemon.patch | sudo git apply -v
 sudo make -j$(nproc)
 sudo cp ~/nodejs-pool/deployment/monero.service /lib/systemd/system/
